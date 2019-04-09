@@ -76,3 +76,64 @@ Error: No schema defined
 .
 [nodemon] app crashed - waiting for file changes before starting...
 </pre>
+
+* * *
+
+## scheme 생성하기
+scheme에는 쿼리에 사용할 데이터 유형을 정의한다. `graphql` 폴더를 생성하고 `scheme.graphql` 파일을 생성한다.
+
+<pre>
+<code>graphql
+  └─ scheme.graphql</code>
+</pre>
+
+`scheme.graphql` 파일을 생성하고 Marketplace에서 `GraphQL for VSCode
+`을 설치한다.
+
+`scheme.graphql` 파일에 type을 추가한다.
+
+<pre>
+<code>type Query {
+  name: String!
+}</code>
+</pre>
+
+`name`은 요청값이고 응답값 유형은 `String`이다. 그리고 !은 필수값(required)이라는 의미이다.
+
+* * *
+
+## resolvers 생성하기
+
+<pre>
+<code>graphql
+├─ scheme.graphql
+└─ resolvers.js</code>
+</pre>
+
+`resolvers.js` 파일에는 Query를 위한 resolvers를 작성한다. `name`으로 요청이 들어오면 응답값으로 ethan을 리턴한다.
+
+<pre>
+<code>const resolvers = {
+  Query: {
+    name: () => "ethan",
+  }
+}
+
+export default resolvers</code>
+</pre>
+
+
+<pre>
+<code>import { GraphQLServer } from 'graphql-yoga'
+import resolvers from './graphql/resolvers' // resolvers 추가
+
+const server = new GraphQLServer({
+  // typeDefs와 resolvers 추가
+  typeDefs: "graphql/scheme.graphql",
+  resolvers
+})
+server.start(() => console.log('Server is running on localhost:4000'))</code>
+</pre>
+
+서버를 실행하고 브라우저에서 `localhost:4000`를 접속하면 `GraphQL Playground`을 확인할 수 있다. 이 곳에서 데이터 쿼리 요청을 테스트 해 볼 수 있다.
+
