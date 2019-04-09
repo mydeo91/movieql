@@ -19,16 +19,16 @@
 
 * * *
 
-## 필요한 `npm` 모듈 설치하기
+## 필요한 npm 모듈 설치하기
 우선 graphql API 서버를 구현하는데 필요한 npm 모듈을 설치한다.
 
-### `graphql-yoga` 설치
+### graphql-yoga 설치
 `graphql-yoga`을 사용하면 GraphQL 서버를 쉽게 설정할 수 있다.
 
 <code>yarn add graphql-yoga</code>
 
-### `babel` 설치
-`Babel`은 `ES6/ES7` 코드를 `ES5` 코드로 변환해주는 도구이다. `ES6/ES7`으로 개발하기 위해서 `babel-cli`를 설치한다.
+### babel 설치
+`Babel`은 ES6/ES7 코드를 ES5 코드로 변환해주는 도구이다. ES6/ES7 으로 개발하기 위해서 `babel-cli`를 설치한다.
 
 <code>yarn global add babel-cli</code>
 
@@ -42,7 +42,7 @@
   "presets": ["env", "stage-3"]
 }</code></pre>
 
-### `nodemon` 설치
+### nodemon 설치
 nodemon은 js가 수정되면 서버를 자동으로 재시작해준다.
 
 <code>yarn global add nodemon</code>
@@ -54,7 +54,7 @@ nodemon은 js가 수정되면 서버를 자동으로 재시작해준다.
     "start": "nodemon --exec babel-node index.js"
 }</code></pre>
 
-### `index.js` 파일 생성하고 실행하기
+### index.js 파일 생성하고 실행하기
 index.js 파일을 생성한다.
 
 <pre><code>import { GraphQLServer } from 'graphql-yoga'
