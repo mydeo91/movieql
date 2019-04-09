@@ -276,3 +276,5 @@ Mutation: {
   }
 }</code></pre>
 
+다른 경우의 리소스 변경에 대한 로직도 addMovie 와 동일하다.
+
