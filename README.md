@@ -137,3 +137,44 @@ server.start(() => console.log('Server is running on localhost:4000'))</code>
 
 서버를 실행하고 브라우저에서 `localhost:4000`를 접속하면 `GraphQL Playground`을 확인할 수 있다. 이 곳에서 데이터 쿼리 요청을 테스트 해 볼 수 있다.
 
+* * *
+
+### Extending the Schema
+
+`scheme.graphql` 파일을 다음과 같이 수정한다. `person`을 요청하면 응답값으로 `Ethan` 객체를 리턴한다.
+
+<pre><code>type Ethan {
+  name: String!,
+  age: Int!,
+  gender: String!
+}
+
+type Query {
+  person: Ethan!
+}</code></pre>
+
+`resolvers.js` 파일을 다음과 같이 수정한다.
+
+<pre><code>const ethan = {
+    name: 'ethan',
+    age: 18,
+    gender: 'male',
+}
+
+const resolvers = {
+    Query: {
+        person: () => ethan
+    }
+}
+
+export default resolvers;</code></pre>
+
+브러우저에 접속해서 SCHEMA 패널을 열어보자. 그러면 요청할 수 있는 쿼리 유형과 응답 유형을 확일 할 수 있다.
+
+만약 person 데이터 중 age 프로퍼티의 값만 받아오고 싶은 경우
+
+<pre><code>query {
+  person {
+    age
+  }
+}</code></pre>

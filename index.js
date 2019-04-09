@@ -6,4 +6,4 @@ const server = new GraphQLServer({
     resolvers
 });
 
-server.start(() => console.log("Graphql Server Running"));
+server.start(() => console.log("Running a GraphQL API server at localhost:4000"));
