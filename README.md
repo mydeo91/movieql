@@ -178,3 +178,54 @@ export default resolvers;</code></pre>
     age
   }
 }</code></pre>
+
+
+* * * 
+
+### Creating Queries with Arguments
+
+여러 객체의 집합으로 이루어진 데이터 소스가 있을 때, Arguments를 통해서 특정 값을 얻어오는 경우에 대해 생각해보자.
+
+우선 schema.graphql 을 통해 데이터의 스키마에 대한 정의를 하고,
+
+<pre><code>// schema.graphql
+
+type Person {
+  id: Int!,
+  name: String!,
+  age: Int!,
+  gender: String!
+}
+
+type Query {
+  people: [Person]!,
+  person(id: Int!): Person
+}
+</code></pre>
+
+정의 된 스키마에 따라, 어떤 식으로 데이터를 얻을 것인지 방법에 대한 정의를 한다.
+
+<pre><code>// resolvers.js
+
+import { people, getById } from './db';
+
+
+const resolvers = {
+    Query: {
+        people: () => people,
+        person: (_, { id }) => getById(id),
+    }
+}
+
+export default resolvers;
+</code></pre>
+
+그리고 query(질의)를 한다.
+
+<pre><code>query {
+  person(id:1){
+    // 얻어온 person에 대해 필요한 props 명시
+    name
+  }
+}</code></pre>
+
