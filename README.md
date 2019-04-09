@@ -186,7 +186,7 @@ export default resolvers;</code></pre>
 
 여러 객체의 집합으로 이루어진 데이터 소스가 있을 때, Arguments를 통해서 특정 값을 얻어오는 경우에 대해 생각해보자.
 
-우선 schema.graphql 을 통해 데이터의 스키마에 대한 정의를 하고,
+우선 `schema.graphql` 을 통해 데이터의 스키마에 대한 정의를 하고,
 
 <pre><code>// schema.graphql
 
@@ -225,6 +225,53 @@ export default resolvers;
 <pre><code>query {
   person(id:1){
     // 얻어온 person에 대해 필요한 props 명시
+    name
+  }
+}</code></pre>
+
+* * * 
+
+### Creating first Mutation
+
+Mutation 이란 `database의 리소스를 변경하기 위한 명령어` 이다.
+
+기존 SQL문과 비교하자면,
+
+<pre>
+  SELECT : Query,
+  INSERT, UPDATE, DELETE : Mutation
+</pre>
+
+이라고 보면 될 것 같다.
+
+<pre><code>type Mutation {
+  addMovie(name: String!, score: Int!): Movie!
+}</code></pre>
+
+<pre><code>Query: {
+    movies: () => getMovies(),
+    movie: (_, { id }) => getById(id),
+},
+Mutation: {
+    addMovie: (_,{name, score}) => addMovie(name, score)
+}</code></pre>
+ 
+<pre><code>export const addMovie = (name, score) => {
+    const newMovie = {
+        id: movies.length + 1,
+        name,
+        score,
+    };
+    movies.push(newMovie);
+    return newMovie;
+}</code></pre>
+
+다음과 같이 schema, resolver, function def 순으로 정의하면 되겠다.
+
+그리고나서 다음과 같이 명령어를 호출하게 되면 정상적으로 mutation에 의한 리소스 변경(추가)이 일어난다.
+
+<pre><code>mutation {
+  addMovie(name: "공공의적", score: 70) {
     name
   }
 }</code></pre>
